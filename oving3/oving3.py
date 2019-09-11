@@ -21,6 +21,7 @@ def is_prime(n):
             return False
     return True
 
-for n in range(1000):
-    if is_prime(n):
-        print("%d is a prime number" % n)
+if __name__ == "__main__":
+    for n in range(1000):
+        if is_prime(n):
+            print("%d is a prime number" % n)

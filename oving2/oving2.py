@@ -20,5 +20,6 @@ def archimedesPI(iterations = 10):
         numberOfSides *= 2
     return pi
 
-print(archimedesPI(500))
+if __name__ = "__main__":
+    print(archimedesPI(500))
 

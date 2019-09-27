@@ -61,4 +61,4 @@ def __getFileDirectory(filename):
             return dirName
 
 print(getwordfreqs("84-0.txt"))
-print(getwordsline("84-0.txt", "shall"))
+#print(getwordsline("84-0.txt", "shall"))

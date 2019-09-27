@@ -20,9 +20,6 @@ def getwordfreqs(filename):
                     wordDictionary[word.lower()] = 1
     return wordDictionary
 
-
-
-
 def getwordsline(filename, word):
     """ Returns a list of line numbers where the given word is used
 
@@ -44,12 +41,6 @@ def getwordsline(filename, word):
 
     return lineList
 
-
-
-
-
-
-
 def __getFileDirectory(filename):
     """ Helper function that returns the directory of the given file
 
@@ -60,5 +51,8 @@ def __getFileDirectory(filename):
         if filename in fileList:
             return dirName
 
-print(getwordfreqs("84-0.txt"))
-#print(getwordsline("84-0.txt", "shall"))
+if __name__ == "__main__":
+    import oving5 as dictionary
+
+    dictionary.getwordfreqs("84-0.txt")
+    dictionary.getwordsline("84-0.txt", "shall")

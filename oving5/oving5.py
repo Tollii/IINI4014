@@ -31,10 +31,18 @@ def getwordsline(filename, word):
     word -- a word formatted in string
     """
 
+    lineCounter = 0
+    lineList = []
     os.chdir(__getFileDirectory(filename))
     file = open(filename, "r")
     if file.mode == "r":
         lineArray = file.readlines()
+        for line in lineArray:
+            lineCounter += 1
+            if word in line:
+                lineList.append(lineCounter)
+
+    return lineList
 
 
 
@@ -51,3 +59,6 @@ def __getFileDirectory(filename):
     for dirName, subdirList, fileList in os.walk('.', topdown=False):
         if filename in fileList:
             return dirName
+
+print(getwordfreqs("84-0.txt"))
+print(getwordsline("84-0.txt", "shall"))

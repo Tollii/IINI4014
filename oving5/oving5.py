@@ -1,7 +1,11 @@
 import os
 
 def getwordfreqs(filename):
+    """ Returns a dictionary with each used word and the frequency of the word
 
+    Arguments:
+    filename -- name of the file formatted in string, i.e. "page2.txt"
+    """
 
     wordDictionary = {}
     os.chdir(__getFileDirectory(filename))
@@ -11,15 +15,22 @@ def getwordfreqs(filename):
         for line in lineArray:
             for word in line.split():
                 if word.lower() in wordDictionary:
-                    wordDictionary[word] += 1
+                    wordDictionary[word.lower()] += 1
                 else:
-                    wordDictionary[word] = 1
-
+                    wordDictionary[word.lower()] = 1
+    return wordDictionary
 
 
 
 
 def getwordsline(filename, word):
+    """ Returns a list of line numbers where the given word is used
+
+    Arguments:
+    filename -- filename -- name of the file formatted in string, i.e. "page2.txt"
+    word -- a word formatted in string
+    """
+
     os.chdir(__getFileDirectory(filename))
     file = open(filename, "r")
     if file.mode == "r":
@@ -32,11 +43,11 @@ def getwordsline(filename, word):
 
 
 def __getFileDirectory(filename):
+    """ Helper function that returns the directory of the given file
+
+    Arguments:
+    filename -- name of the file formatted in string, i.e. "page2.txt"
+    """
     for dirName, subdirList, fileList in os.walk('.', topdown=False):
-        print('Found directory: %s' % dirName)
-
-
-
-
-
-__getFileDirectory("random.txt")
+        if filename in fileList:
+            return dirName

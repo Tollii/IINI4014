@@ -1,4 +1,4 @@
-# IINI4014-ovinger
+# IINI4014 assignments
 Assignments for the course "Python for programmers"
 
 * Øving 1 - [Hello world](/oving1)

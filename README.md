@@ -1,5 +1,4 @@
 # IINI4014-ovinger
-https://www.ntnu.no/studier/emner/IINI4014#tab=omEmnet
 Assignments for the course "Python for programmers"
 
 * Øving 1 - [Hello world](/oving1)

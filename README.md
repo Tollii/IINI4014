@@ -11,4 +11,4 @@ Assignments for the course "Python for programmers"
 
 * Assignment 5 - [File I/O and text processing](/oving5)
 
-* Assignment 5 - [Sorting of strings in .txt file](/oving6)
+* Assignment 6 - [Sorting of strings in .txt file](/oving6)

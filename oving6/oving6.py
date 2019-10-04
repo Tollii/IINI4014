@@ -2,7 +2,7 @@ import os
 import re
 
 def sortFileByWords(filename):
-	""" Sorts a list of strings lexiographically and by length
+	""" Sorts a .txt file by words both lexiographically and by word length
 		
 	Arguments:
 	filename -- name of the file formatted in string, i.e. "page2.txt"

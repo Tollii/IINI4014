@@ -10,3 +10,5 @@ Assignments for the course "Python for programmers"
 * Assignment 4 - [Modular multiplication visualization](/oving4)
 
 * Assignment 5 - [File I/O and text processing](/oving5)
+
+* Assignment 6 - [Sorting of strings in .txt file](/oving6)

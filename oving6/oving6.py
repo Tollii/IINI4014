@@ -10,10 +10,11 @@ def sortFileByWords(filename):
 
 	sortList = []
 
-	#Changes directory and fills sortList with all words contained in the file
+	#Fills sortList with words devoid of characters from given .txt file
 	with open(__getFileDirectory(filename)) as f:
 		for line in f:
 			for word in line.split():
+				#Removes characters from the word with regular expressions
 				res = re.sub(r'[^\w]', '', word)
 				sortList.append(res)
 

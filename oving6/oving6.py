@@ -11,11 +11,8 @@ def sortFileByWords(filename):
 	sortList = []
 
 	#Changes directory and fills sortList with all words contained in the file
-	os.chdir(__getFileDirectory(filename))
-	file = open(filename, "r")
-	if file.mode == "r":
-		lineArray = file.readlines()
-		for line in lineArray:
+	with open(__getFileDirectory(filename)) as f:
+		for line in f:
 			for word in line.split():
 				sortList.append(word)
 
@@ -42,7 +39,7 @@ def sortFileByWords(filename):
 				w1 = int(''.join(str(ord(c)) for c in sortList[i]))
 				w2 = int(''.join(str(ord(c)) for c in sortList[i + 1]))
 				if w1 > w2:
-					sortList[i], sortList[i + 1] = sortList[i + 1], sortList[i]				
+					sortList[i], sortList[i + 1] = sortList[i + 1], sortList[i]			
 	return sortList
 
 def __getFileDirectory(filename):
@@ -53,7 +50,7 @@ def __getFileDirectory(filename):
 	"""
 	for dirName, subdirList, fileList in os.walk('.', topdown=False):
 		if filename in fileList:
-			return dirName
+			return dirName + "/" + filename
 
 if __name__ == '__main__': 
 	print(sortFileByWords("random.txt"))

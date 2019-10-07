@@ -8,11 +8,8 @@ def getwordfreqs(filename):
     """
 
     wordDictionary = {}
-    os.chdir(__getFileDirectory(filename))
-    file = open(filename, "r")
-    if file.mode == "r":
-        lineArray = file.readlines()
-        for line in lineArray:
+    with open(__getFileDirectory(filename)) as f:
+        for line in f:
             for word in line.split():
                 if word.lower() in wordDictionary:
                     wordDictionary[word.lower()] += 1
@@ -30,11 +27,8 @@ def getwordsline(filename, word):
 
     lineCounter = 0
     lineList = []
-    os.chdir(__getFileDirectory(filename))
-    file = open(filename, "r")
-    if file.mode == "r":
-        lineArray = file.readlines()
-        for line in lineArray:
+    with open(__getFileDirectory(filename)) as f:
+        for line in f:
             lineCounter += 1
             if word in line:
                 lineList.append(lineCounter)
@@ -49,10 +43,9 @@ def __getFileDirectory(filename):
     """
     for dirName, subdirList, fileList in os.walk('.', topdown=False):
         if filename in fileList:
-            return dirName
+            return dirName + "/" + filename
 
 if __name__ == "__main__":
-    import oving5 as dictionary
 
-    dictionary.getwordfreqs("84-0.txt")
-    dictionary.getwordsline("84-0.txt", "shall")
+    print(getwordfreqs("84-0.txt"))
+    print(getwordsline("84-0.txt", "shall"))

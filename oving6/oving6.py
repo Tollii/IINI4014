@@ -14,12 +14,8 @@ def sortFileByWords(filename):
 	with open(__getFileDirectory(filename)) as f:
 		for line in f:
 			for word in line.split():
-				sortList.append(word)
-
-	# Removes all non-alphanumerical characters
-	for i in range(len(sortList)):
-		sortList[i] = re.sub(r'[^\w]', '', sortList[i])
-
+				res = re.sub(r'[^\w]', '', word)
+				sortList.append(res)
 
 	#Sorts list by length with selection sort
 	for fillslot in range(len(sortList) - 1, 0, -1):

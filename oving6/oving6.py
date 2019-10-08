@@ -3,7 +3,7 @@ import re
 
 def sortFileByWords(filename):
 	""" Sorts a .txt file by words both lexiographically and by word length
-		
+
 	Arguments:
 	filename -- name of the file formatted in string, i.e. "page2.txt"
 	"""
@@ -33,10 +33,8 @@ def sortFileByWords(filename):
 				""" Turns the characters in the string into a unicode point
 					and is then joined together as one larger integer value
 				"""
-				w1 = int(''.join(str(ord(c)) for c in sortList[i]))
-				w2 = int(''.join(str(ord(c)) for c in sortList[i + 1]))
-				if w1 > w2:
-					sortList[i], sortList[i + 1] = sortList[i + 1], sortList[i]			
+                                if sortList[i] > sortList[i + 1]:
+					sortList[i], sortList[i + 1] = sortList[i + 1], sortList[i]
 	return sortList
 
 def __getFileDirectory(filename):
@@ -49,6 +47,6 @@ def __getFileDirectory(filename):
 		if filename in fileList:
 			return dirName + "/" + filename
 
-if __name__ == '__main__': 
+if __name__ == '__main__':
 	print(sortFileByWords("random.txt"))
 

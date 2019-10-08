@@ -10,7 +10,7 @@ def sortFileByWords(filename):
 
 	sortList = []
 
-	#Fills sortList with words devoid of characters from given .txt file
+	#Fills sortList with words devoid of special characters from given .txt file
 	with open(__getFileDirectory(filename)) as f:
 		for line in f:
 			for word in line.split():

@@ -14,3 +14,5 @@ Assignments for the course "Python for programmers"
 * Assignment 6 - [Sorting of strings in .txt file](/oving6/oving6.py)
 
 * Assignment 7 - [RSA cryptography](/oving7/decrypt.py)
+
+* Assignment 8 - [Hermann grid illusion](/oving8/oving8.py)

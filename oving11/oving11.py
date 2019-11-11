@@ -1,4 +1,5 @@
 import os
+import re
 
 
 class TextAnalyzer:
@@ -20,15 +21,17 @@ class TextAnalyzer:
         :param filename: Filename formatted in string, i.e "page2.txt"
         :return: A dictionary with each used word and the frequency of the word
         """
-        worddictionary = {}
+        word_dictionary = {}
         with open(self.get_file_directory(filename)) as f:
             for line in f:
                 for word in line.split():
-                    if word.lower() in worddictionary:
-                        worddictionary[word.lower()] += 1
+                    word_cleaned = re.sub(r'[^\w]', '', word)
+                    if word_cleaned.lower() in word_dictionary:
+                        word_dictionary[word_cleaned.lower()] += 1
                     else:
-                        worddictionary[word.lower()] = 1
-        return worddictionary
+                        word_dictionary[word_cleaned.lower()] = 1
+
+        return word_dictionary
 
     def get_paragraph_sentence_number(self, filename):
         """
@@ -36,34 +39,70 @@ class TextAnalyzer:
         :return: Dictionary of paragraph number as key and number of sentences in the paragraph as value
         """
         punctuation = {'.', '!', '?'}
-        paragraphdictionary = {}
-        paragraphnum = 0
+        paragraph_dictionary = {}
+        paragraph_num = 0
 
         with open(self.get_file_directory(filename)) as f:
             for line in f:
                 if line == '\n':
                     continue
                 if line[-1] == '\n':
-                    paragraphnum += 1
+                    paragraph_num += 1
                     for word in line.split():
                         if word[-1] in punctuation:
-                            if paragraphnum in paragraphdictionary:
-                                paragraphdictionary[paragraphnum] += 1
+                            if paragraph_num in paragraph_dictionary:
+                                paragraph_dictionary[paragraph_num] += 1
                             else:
-                                paragraphdictionary[paragraphnum] = 1
+                                paragraph_dictionary[paragraph_num] = 1
 
                     # Adds a zero value if no punctuation is found in the paragraph
-                    if paragraphnum in paragraphdictionary:
+                    if paragraph_num in paragraph_dictionary:
                         continue
                     else:
-                        paragraphdictionary[paragraphnum] = 0
+                        paragraph_dictionary[paragraph_num] = 0
 
-        return paragraphdictionary
+        return paragraph_dictionary
+
+    def get_sentence_length(self, filename):
+        """
+        :param filename: Filename formatted in string, i.e "page2.txt"
+        :return: A dictionary with sentence numbers as keys, and number of words in the corresponding sentence as value
+        """
+        punctuation = {'.', '!', '?'}
+        sentence_dictionary = {}
+        word_counter = 0
+        sentence_counter = 0
+        with open(self.get_file_directory(filename)) as f:
+            for line in f:
+                if line == '\n':
+                    continue
+                for word in line.split():
+                    word_counter += 1
+                    if word[-1] in punctuation:
+                        sentence_counter += 1
+                        sentence_dictionary[sentence_counter] = word_counter
+                        word_counter = 0
+
+                # Handling of new line without punctuation, counts it as one sentence
+                sentence_counter += 1
+                if sentence_counter not in sentence_dictionary:
+                    if word_counter == 0:
+                        continue
+                    sentence_dictionary[sentence_counter] = word_counter
+                    word_counter = 0
+
+        return sentence_dictionary
 
     def get_percentage_easy(self, filename):
         """
         :param filename: Filename formatted in string, i.e "page2.txt"
         :return: Percentage of easy words
+        """
+
+    def get_percentage_difficult(self, filename):
+        """
+        :param filename: Filename formatted in string, i.e "page2.txt"
+        :return: Percentage of difficult words
         """
 
     def get_percentage_unique(self, filename):
@@ -72,14 +111,14 @@ class TextAnalyzer:
         :return: A percentage of unique words. Unique words / total words
         """
         dictionary = self.get_word_frequency(filename)
-        totalwords = 0
-        uniquewords = 0
+        total_words = 0
+        unique_words = 0
 
         for k, v in dictionary.items():
-            totalwords += v
-            uniquewords += 1
+            total_words += v
+            unique_words += 1
 
-        return uniquewords / totalwords
+        return unique_words / total_words
 
     def get_words_line(self, filename, word):
         """
@@ -87,19 +126,19 @@ class TextAnalyzer:
         :param word: word formatted in string
         :return: A list of line numbers where the given word is used
         """
-
-        linecounter = 0
-        linelist = []
+        line_counter = 0
+        line_list = []
         with open(self.get_file_directory(filename)) as f:
             for line in f:
-                linecounter += 1
+                line_counter += 1
                 if word in line:
-                    linelist.append(linecounter)
+                    line_list.append(line_counter)
 
-        return linelist
+        return line_list
+
 
 
 if __name__ == "__main__":
     a = TextAnalyzer()
-    print(a.get_paragraph_sentence_number("ransom.txt"))
+    print(a.get_sentence_length("ransom.txt"))
 

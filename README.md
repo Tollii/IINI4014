@@ -16,3 +16,8 @@ Assignments for the course "Python for programmers"
 * Assignment 7 - [RSA cryptography](/oving7/decrypt.py)
 
 * Assignment 8 - [Hermann grid illusion](/oving8/oving8.py)
+
+* Assignment 9 - [Classes](/oving8/dice.py)
+
+* Assignment 10 - [More classes](/oving8/oving10.py)
+

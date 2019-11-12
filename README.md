@@ -21,3 +21,5 @@ Assignments for the course "Python for programmers"
 
 * Assignment 10 - [More classes](/oving8/oving10.py)
 
+* Assignment 11 - [Text analyzer](/oving8/TextAnalyzer.py)
+

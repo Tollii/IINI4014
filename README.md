@@ -17,9 +17,9 @@ Assignments for the course "Python for programmers"
 
 * Assignment 8 - [Hermann grid illusion](/oving8/oving8.py)
 
-* Assignment 9 - [Classes](/oving8/dice.py)
+* Assignment 9 - [Classes](/oving9/dice.py)
 
-* Assignment 10 - [More classes](/oving8/oving10.py)
+* Assignment 10 - [More classes](/oving10/oving10.py)
 
-* Assignment 11 - [Text analyzer](/oving8/TextAnalyzer.py)
+* Assignment 11 - [Text analyzer](/oving11/TextAnalyzer.py)
 

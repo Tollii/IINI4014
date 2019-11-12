@@ -16,28 +16,13 @@ class TextAnalyzer(object):
             if filename in fileList:
                 return dirName + "/" + filename
 
-    def get_words_line(self, filename, word):
-        """
-        :param filename: Filename formatted in string, i.e "page2.txt"
-        :param word: word formatted in string
-        :return: A list of line numbers where the given word is used
-        """
-        line_counter = 0
-        line_list = []
-        with open(self.change_directory(filename)) as f:
-            for line in f:
-                line_counter += 1
-                if word in line:
-                    line_list.append(line_counter)
-
-        return line_list
-
     def get_word_frequency(self, filename):
         """
         :param filename: Filename formatted in string, i.e "page2.txt"
         :return: A dictionary with each used word as the key and the frequency of the word as the value
         """
         word_dictionary = {}
+
         with open(self.change_directory(filename)) as f:
             for line in f:
                 for word in line.split():
@@ -88,6 +73,7 @@ class TextAnalyzer(object):
         sentence_dictionary = {}
         word_counter = 0
         sentence_counter = 0
+
         with open(self.change_directory(filename)) as f:
             for line in f:
                 if line == '\n':
@@ -115,10 +101,11 @@ class TextAnalyzer(object):
         :return: Percentage of easy words
         """
         dictionary = self.get_word_frequency(filename)
-        number_of_words = self.get_number_of_words(filename)
+        number_of_words = sum(dictionary.values())
         barrier = (number_of_words / 1000) * 1.3 + (number_of_words / (number_of_words * 0.8)) + 20
         easy_words = 0
-        for _, v in dictionary.items():
+
+        for v in dictionary.values():
             if v > barrier:
                 easy_words += v
 
@@ -130,11 +117,11 @@ class TextAnalyzer(object):
         :return: Percentage of difficult words
         """
         dictionary = self.get_word_frequency(filename)
-        number_of_words = self.get_number_of_words(filename)
+        number_of_words = sum(dictionary.values())
         barrier = (number_of_words / 1000) * 1.3 + (number_of_words / (number_of_words * 0.8)) + 20
         difficult_words = 0
 
-        for _, v in dictionary.items():
+        for v in dictionary.values():
             if v < barrier:
                 difficult_words += v
         return difficult_words / number_of_words
@@ -145,30 +132,10 @@ class TextAnalyzer(object):
         :return: A percentage of unique words. Unique words / total words
         """
         dictionary = self.get_word_frequency(filename)
-        total_words = 0
-        unique_words = 0
-
-        for _, v in dictionary.items():
-            total_words += v
-            unique_words += 1
-
-        return unique_words / total_words
-
-    def get_number_of_words(self, filename):
-        """
-        :param filename: Filename formatted in string, i.e "page2.txt"
-        :return: Number of words in the given file
-        """
-        word_counter = 0
-        with open(self.change_directory(filename)) as f:
-            for line in f:
-                for _ in line.split():
-                    word_counter += 1
-        return word_counter
+        return len(dictionary) / sum(dictionary.values())
 
 
 if __name__ == "__main__":
     a = TextAnalyzer()
-    print(a.get_number_of_words("84-0.txt"))
-    print(a.get_word_frequency("84-0.txt"))
-    print(a.get_percentage_difficult('84-0.txt'))
+    #print(a.get_word_frequency("84-0.txt"))
+    print(a.get_percentage_unique('84-0.txt'))

@@ -2,27 +2,43 @@ import os
 import re
 
 
-class TextAnalyzer:
+class TextAnalyzer(object):
 
     @classmethod
-    def get_file_directory(cls, filename):
+    def change_directory(cls, filename):
         """
         Helper function that returns the directory of the given file,
          given that it is in the current working directory's subdirectory
         :param filename: Filename formatted in string, i.e "page2.txt"
         :return: Null
         """
-        for dirName, subdirList, fileList in os.walk('.'):
+        for dirName, _, fileList in os.walk('.'):
             if filename in fileList:
                 return dirName + "/" + filename
+
+    def get_words_line(self, filename, word):
+        """
+        :param filename: Filename formatted in string, i.e "page2.txt"
+        :param word: word formatted in string
+        :return: A list of line numbers where the given word is used
+        """
+        line_counter = 0
+        line_list = []
+        with open(self.change_directory(filename)) as f:
+            for line in f:
+                line_counter += 1
+                if word in line:
+                    line_list.append(line_counter)
+
+        return line_list
 
     def get_word_frequency(self, filename):
         """
         :param filename: Filename formatted in string, i.e "page2.txt"
-        :return: A dictionary with each used word and the frequency of the word
+        :return: A dictionary with each used word as the key and the frequency of the word as the value
         """
         word_dictionary = {}
-        with open(self.get_file_directory(filename)) as f:
+        with open(self.change_directory(filename)) as f:
             for line in f:
                 for word in line.split():
                     word_cleaned = re.sub(r'[^\w]', '', word)
@@ -42,7 +58,7 @@ class TextAnalyzer:
         paragraph_dictionary = {}
         paragraph_num = 0
 
-        with open(self.get_file_directory(filename)) as f:
+        with open(self.change_directory(filename)) as f:
             for line in f:
                 if line == '\n':
                     continue
@@ -72,7 +88,7 @@ class TextAnalyzer:
         sentence_dictionary = {}
         word_counter = 0
         sentence_counter = 0
-        with open(self.get_file_directory(filename)) as f:
+        with open(self.change_directory(filename)) as f:
             for line in f:
                 if line == '\n':
                     continue
@@ -98,12 +114,30 @@ class TextAnalyzer:
         :param filename: Filename formatted in string, i.e "page2.txt"
         :return: Percentage of easy words
         """
+        dictionary = self.get_word_frequency(filename)
+        number_of_words = self.get_number_of_words(filename)
+        barrier = (number_of_words / 1000) * 1.3 + (number_of_words / (number_of_words * 0.8)) + 20
+        easy_words = 0
+        for _, v in dictionary.items():
+            if v > barrier:
+                easy_words += v
+
+        return easy_words / number_of_words
 
     def get_percentage_difficult(self, filename):
         """
         :param filename: Filename formatted in string, i.e "page2.txt"
         :return: Percentage of difficult words
         """
+        dictionary = self.get_word_frequency(filename)
+        number_of_words = self.get_number_of_words(filename)
+        barrier = (number_of_words / 1000) * 1.3 + (number_of_words / (number_of_words * 0.8)) + 20
+        difficult_words = 0
+
+        for _, v in dictionary.items():
+            if v < barrier:
+                difficult_words += v
+        return difficult_words / number_of_words
 
     def get_percentage_unique(self, filename):
         """
@@ -114,31 +148,27 @@ class TextAnalyzer:
         total_words = 0
         unique_words = 0
 
-        for k, v in dictionary.items():
+        for _, v in dictionary.items():
             total_words += v
             unique_words += 1
 
         return unique_words / total_words
 
-    def get_words_line(self, filename, word):
+    def get_number_of_words(self, filename):
         """
         :param filename: Filename formatted in string, i.e "page2.txt"
-        :param word: word formatted in string
-        :return: A list of line numbers where the given word is used
+        :return: Number of words in the given file
         """
-        line_counter = 0
-        line_list = []
-        with open(self.get_file_directory(filename)) as f:
+        word_counter = 0
+        with open(self.change_directory(filename)) as f:
             for line in f:
-                line_counter += 1
-                if word in line:
-                    line_list.append(line_counter)
-
-        return line_list
-
+                for _ in line.split():
+                    word_counter += 1
+        return word_counter
 
 
 if __name__ == "__main__":
     a = TextAnalyzer()
-    print(a.get_sentence_length("ransom.txt"))
-
+    print(a.get_number_of_words("84-0.txt"))
+    print(a.get_word_frequency("84-0.txt"))
+    print(a.get_percentage_difficult('84-0.txt'))

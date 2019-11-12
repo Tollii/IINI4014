@@ -137,5 +137,5 @@ class TextAnalyzer(object):
 
 if __name__ == "__main__":
     a = TextAnalyzer()
-    #print(a.get_word_frequency("84-0.txt"))
+    print(a.get_word_frequency("84-0.txt"))
     print(a.get_percentage_unique('84-0.txt'))

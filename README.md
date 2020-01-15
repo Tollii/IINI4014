@@ -23,3 +23,4 @@ Assignments for the course "Python for programmers"
 
 * Assignment 11 - [Text analyzer](/assignment_11/TextAnalyzer.py)
 
+* [Final Exam](/exam/Main.py)
